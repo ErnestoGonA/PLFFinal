@@ -13,6 +13,54 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/map/discount', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json(products.map(x => {
+                x.priceWithDiscount = x.price - (x.price * (1 / x.discount))
+                return x
+            }
+            )) :
+                res.send("No hay productos")
+        })
+})
+
+router.get('/map/raise/:raise', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json(products.map(x => {
+                x.priceWithRaise = x.price + (x.price * (1 / req.params.raise))
+                return x
+            }
+            )) :
+                res.send("No hay productos")
+        })
+})
+
+router.get('/filter/stock', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json(products.filter(product => product.stock === 0)) :
+                res.send("No hay productos")
+        })
+})
+
+router.get('/reduce/stock', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json({ "products": products.map(product => product.stock).reduce((x, y) => x + y) }) :
+                res.send("No hay productos")
+        })
+})
+
+router.get('/reduce/price', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json({ "products": products.map(product => product.price).reduce((x, y) => x + y) }) :
+                res.send("No hay productos")
+        })
+})
+
 router.post('/init', (req, res) => {
     _.each(_.range(1, 10001, 1), x => {
         _product.create({
