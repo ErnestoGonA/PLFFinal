@@ -5,4 +5,5 @@ const app = require('./app')
 const server = http.createServer(app)
 
 //Turn on the server in localhost:3000
+console.log("Server listening in localhost:" + port)
 server.listen(port)

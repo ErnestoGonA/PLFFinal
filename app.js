@@ -3,10 +3,10 @@ const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
-const taskRoutes = require('./api/routes/tasks')
-const userRoutes = require('./api/routes/users')
+// const taskRoutes = require('./api/routes/tasks')
+// const userRoutes = require('./api/routes/users')
 
-mongoose.connect('mongodb://localhost:27017/taskProject', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/plfProject', { useNewUrlParser: true })
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -24,8 +24,8 @@ app.use((req,res,next) => {
 })
 
 //Routes wich should handle request
-app.use('/task',taskRoutes)
-app.use('/user',userRoutes)
+// app.use('/task',taskRoutes)
+// app.use('/user',userRoutes)
 
 
 app.use((req,res,next) => {
