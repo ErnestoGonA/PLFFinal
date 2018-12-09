@@ -1,12 +1,15 @@
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const morgan = require('morgan')
 
-// const taskRoutes = require('./api/routes/tasks')
-// const userRoutes = require('./api/routes/users')
+const productRoutes = require('./routes/products')
 
 mongoose.connect('mongodb://localhost:27017/plfProject', { useNewUrlParser: true })
+
+const app = express()
+
+app.use(morgan('dev'))
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -24,9 +27,7 @@ app.use((req,res,next) => {
 })
 
 //Routes wich should handle request
-// app.use('/task',taskRoutes)
-// app.use('/user',userRoutes)
-
+app.use('/products',productRoutes)
 
 app.use((req,res,next) => {
     const error = new Error('Not found')
