@@ -45,6 +45,14 @@ router.get('/filter/stock', (req, res) => {
         })
 })
 
+router.get('/filter/name', (req, res) => {
+    _product.find()
+        .then(products => {
+            products ? res.json(products.filter(product => product.name.length > 6)) :
+                res.send("No hay productos")
+        })
+})
+
 router.get('/reduce/stock', (req, res) => {
     _product.find()
         .then(products => {
